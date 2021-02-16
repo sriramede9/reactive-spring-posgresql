@@ -1,7 +1,6 @@
 package com.sri.reactive.domain;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -24,12 +23,13 @@ import lombok.With;
 @Builder
 @With
 @Table("anime")
-public class Anime {
+public class Anime  {
 
-	@PositiveOrZero
 	@Id
 	private Integer id;
 	
 	@NotNull(message = "Name should not be null")
 	private String name;
+
+
 }
