@@ -1,9 +1,11 @@
 package com.sri.reactive.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sri.reactive.domain.Anime;
+import com.sri.reactive.exception.AnimeNotfoundException;
 import com.sri.reactive.repository.AnimeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -16,26 +18,45 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AnimateService {
 
+	@Autowired
 	private final AnimeRepository animeRepository;
 
 	public Flux<Anime> findAllAnime() {
 		return animeRepository.findAll();
 	}
-	
+
 	public Mono<Anime> findAnimeById(Integer id) {
 		return animeRepository.findById(id);
 	}
 
 	public Mono<Anime> addAnimeUser(Anime anime) {
-		
+
 		// TODO Auto-generated method stub
-		
+
 //		Mono<Boolean> existsById = animeRepository.existsById(anime.getId());
+
+		Mono<Anime> save = animeRepository.save(anime.setAsNew());
+
+		return save;
+	}
+
+	public Mono<Anime> updateAnimeUser(Anime anime) {
+
+		// TODO Auto-generated method stub
+
+		Mono<Boolean> existsById = animeRepository.existsById(anime.getId());
+
+//		existsById.subscribe((s) -> {
+//			if (s != true) {
+//				throw new AnimeNotfoundException("NO Anime Found with given Id to update" + anime.getId());
+//			}
+//		});
+
 		
-		
+		existsById.doOnError(Throwable::getLocalizedMessage);
 		
 		Mono<Anime> save = animeRepository.save(anime);
-		
+
 		return save;
 	}
 

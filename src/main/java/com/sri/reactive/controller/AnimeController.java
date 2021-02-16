@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,12 @@ public class AnimeController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Mono<Anime> addAnimeUser(@RequestBody @Valid Anime anime) {
 		Mono<Anime> addAnimeUser = animeService.addAnimeUser(anime);
+		return addAnimeUser;
+	}
+	@PutMapping("/update")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public Mono<Anime> updateAnimeUser(@RequestBody @Valid Anime anime) {
+		Mono<Anime> addAnimeUser = animeService.updateAnimeUser(anime);
 		return addAnimeUser;
 	}
 }
