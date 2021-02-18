@@ -7,7 +7,16 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.With;
+
 @Table("anime")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Anime implements Persistable<Integer> {
 
 	@Id
@@ -18,11 +27,6 @@ public class Anime implements Persistable<Integer> {
 
 	@Transient
 	private boolean newAnime;
-
-	public Anime() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public Anime(Integer id, @NotNull(message = "Name should not be null") String name) {
 		super();
