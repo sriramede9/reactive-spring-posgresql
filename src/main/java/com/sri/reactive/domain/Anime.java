@@ -17,6 +17,7 @@ import lombok.With;
 @Table("anime")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Anime implements Persistable<Integer> {
 
 	@Id

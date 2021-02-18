@@ -33,10 +33,6 @@ public class AnimateService {
 
 	public Mono<Anime> addAnimeUser(Anime anime) {
 
-		// TODO Auto-generated method stub
-
-//		Mono<Boolean> existsById = animeRepository.existsById(anime.getId());
-
 		Mono<Anime> save = animeRepository.save(anime.setAsNew());
 
 		return save;
@@ -45,13 +41,11 @@ public class AnimateService {
 	@Transactional
 	public Mono<Anime> updateAnimeUser(Anime anime) {
 
-
-		return animeRepository.findById(anime.getId()).flatMap(animedb->{
+		return animeRepository.findById(anime.getId()).flatMap(animedb -> {
 			animedb.setName(anime.getName());
 			return animeRepository.save(animedb);
 		}).switchIfEmpty(Mono.error(new AnimeNotfoundException("No anime found to update")));
 
-//		return animeRepository.save(anime).doOnError(Throwable::getLocalizedMessage);
 	}
 
 	public Mono<Anime> updateAnimeUserTESt(Mono<Anime> findAnimeById) {
@@ -61,13 +55,6 @@ public class AnimateService {
 
 //	@Transactional
 	public Mono<Void> deleteAnimeById(Integer id) {
-		// TODO Auto-generated method stub
-//		return animeRepository.findById(id).flatMap(animeRepository::delete);
-
-//		Mono<Anime> findById = animeRepository.findById(id);
-//		findById.subscribe(System.out::println);
-//		
-//		return animeRepository.delete(findById.block()).then(Mono.empty());
 
 		return animeRepository.findById(id).flatMap(animeRepository::delete);
 
